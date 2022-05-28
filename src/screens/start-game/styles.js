@@ -23,4 +23,7 @@ export const styles = StyleSheet.create({
         justifyContent: 'space-between',
         paddingHorizontal: 25,
     },
+    button: {
+        width: 100,
+    }
 });
