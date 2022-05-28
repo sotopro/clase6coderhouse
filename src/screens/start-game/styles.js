@@ -15,6 +15,7 @@ export const styles = StyleSheet.create({
         width: 300,
         maxWidth: '80%',
         alignItems: 'center',
+        paddingVertical: 20,
     },
     buttonContainer: {
         flexDirection: 'row',
