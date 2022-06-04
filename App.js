@@ -1,6 +1,6 @@
-import { StyleSheet, View } from 'react-native';
-import StartGame from './src/screens/start-game';
-import { Header } from './src/components/index';
+import { StyleSheet, View, SafeAreaView } from "react-native";
+import StartGame from "./src/screens/start-game";
+import { Header } from "./src/components/index";
 
 export default function App() {
   return (
@@ -14,6 +14,6 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
   },
 });
