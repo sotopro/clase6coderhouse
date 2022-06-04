@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, SafeAreaView } from "react-native";
 import { useFonts } from "expo-font";
 import AppLoading from "expo-app-loading";
 import StartGame from "./src/screens/start-game";
@@ -50,10 +50,10 @@ export default function App() {
     );
   }
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Header title="Adivina el número" />
       {content}
-    </View>
+    </SafeAreaView>
   );
 }
 
