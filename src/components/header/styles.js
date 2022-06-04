@@ -13,6 +13,6 @@ export const styles = StyleSheet.create({
   title: {
     color: Colors.textColorPrimary,
     fontSize: 22,
-    fontWeight: "bold",
+    fontFamily: "openSansBold",
   },
 });
