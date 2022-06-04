@@ -13,6 +13,9 @@ export const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
   },
+  containerScroll: {
+    flex: 1,
+  },
   title: {
     fontSize: 20,
     marginVertical: 10,

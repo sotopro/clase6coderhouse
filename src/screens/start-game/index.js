@@ -5,6 +5,9 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   Button,
+  KeyboardAvoidingView,
+  ScrollView,
+  Platform,
 } from "react-native";
 import { Card, Input, NumberContainer } from "../../components/index";
 import { styles } from "./styles";
@@ -14,6 +17,7 @@ const StartGame = ({ onStartGame }) => {
   const [enteredValue, setEnteredValue] = useState("");
   const [selectedNumber, setSelectedNumber] = useState("");
   const [confirmed, setConfirmed] = useState(false);
+  const isIOS = Platform.OS === "ios";
 
   const handlerInputNumber = (text) => {
     setEnteredValue(text.replace(/[^0-9]/g, ""));
@@ -48,46 +52,52 @@ const StartGame = ({ onStartGame }) => {
   }
 
   return (
-    <TouchableWithoutFeedback
-      style={styles.containerTouchable}
-      onPress={() => {
-        Keyboard.dismiss();
-      }}
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior={isIOS ? "position" : "height"}
+      keyboardVerticalOffset={30}
     >
-      <View style={styles.container}>
-        <Text style={styles.title}>Comenzar Juego</Text>
-        <Card style={styles.inputContainer}>
-          <Text style={styles.subtitle}>Elija el Numero</Text>
-          <Input
-            placeholder="Ingresa un Numero"
-            keyboardType="numeric"
-            autoCapitalize="none"
-            autoCorrect={false}
-            maxLength={2}
-            blurOnSubmit
-            onChangeText={handlerInputNumber}
-            value={enteredValue}
-          />
-          <View style={styles.buttonContainer}>
-            <View style={styles.button}>
-              <Button
-                title="Limpiar"
-                onPress={() => handlerClearInput()}
-                color={Colors.primary}
-              />
+      <TouchableWithoutFeedback
+        style={styles.containerTouchable}
+        onPress={() => {
+          Keyboard.dismiss();
+        }}
+      >
+        <ScrollView style={styles.containerScroll}>
+          <Text style={styles.title}>Comenzar Juego</Text>
+          <Card style={styles.inputContainer}>
+            <Text style={styles.subtitle}>Elija el Numero</Text>
+            <Input
+              placeholder="Ingresa un Numero"
+              keyboardType="numeric"
+              autoCapitalize="none"
+              autoCorrect={false}
+              maxLength={2}
+              blurOnSubmit
+              onChangeText={handlerInputNumber}
+              value={enteredValue}
+            />
+            <View style={styles.buttonContainer}>
+              <View style={styles.button}>
+                <Button
+                  title="Limpiar"
+                  onPress={() => handlerClearInput()}
+                  color={Colors.primary}
+                />
+              </View>
+              <View style={styles.button}>
+                <Button
+                  title="Confirmar"
+                  onPress={() => handlerConfirmInput()}
+                  color={Colors.secondary}
+                />
+              </View>
             </View>
-            <View style={styles.button}>
-              <Button
-                title="Confirmar"
-                onPress={() => handlerConfirmInput()}
-                color={Colors.secondary}
-              />
-            </View>
-          </View>
-        </Card>
-        {confirmedOutput}
-      </View>
-    </TouchableWithoutFeedback>
+          </Card>
+          {confirmedOutput}
+        </ScrollView>
+      </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
   );
 };
 
