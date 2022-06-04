@@ -30,4 +30,11 @@ export const styles = StyleSheet.create({
   button: {
     width: 100,
   },
+  summaryContainer: {
+    marginVertical: 20,
+    alignItems: "center",
+  },
+  subtitle: {
+    fontSize: 16,
+  },
 });

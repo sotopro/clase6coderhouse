@@ -6,15 +6,47 @@ import {
   Keyboard,
   Button,
 } from "react-native";
-import { Card, Input } from "../../components/index";
+import { Card, Input, NumberContainer } from "../../components/index";
 import { styles } from "./styles";
 import Colors from "../../constants/colors";
-const StartGame = () => {
+
+const StartGame = ({ onStartGame }) => {
   const [enteredValue, setEnteredValue] = useState("");
+  const [selectedNumber, setSelectedNumber] = useState("");
+  const [confirmed, setConfirmed] = useState(false);
 
   const handlerInputNumber = (text) => {
     setEnteredValue(text.replace(/[^0-9]/g, ""));
   };
+
+  const handlerClearInput = () => {
+    setEnteredValue("");
+    setConfirmed(false);
+  };
+
+  const handlerConfirmInput = () => {
+    const choseNumber = parseInt(enteredValue);
+    if (isNaN(choseNumber) || choseNumber <= 0 || choseNumber > 99) return;
+    setConfirmed(true);
+    setSelectedNumber(choseNumber);
+    setEnteredValue("");
+  };
+
+  let confirmedOutput;
+  if (confirmed) {
+    confirmedOutput = (
+      <Card style={styles.summaryContainer}>
+        <Text style={styles.subtitle}>Tu selección</Text>
+        <NumberContainer>{selectedNumber}</NumberContainer>
+        <Button
+          title="Empezar Juego"
+          onPress={() => onStartGame(selectedNumber)}
+          color={Colors.secondary}
+        />
+      </Card>
+    );
+  }
+
   return (
     <TouchableWithoutFeedback
       style={styles.containerTouchable}
@@ -25,7 +57,7 @@ const StartGame = () => {
       <View style={styles.container}>
         <Text style={styles.title}>Comenzar Juego</Text>
         <Card style={styles.inputContainer}>
-          <Text>Elija el Numero</Text>
+          <Text style={styles.subtitle}>Elija el Numero</Text>
           <Input
             placeholder="Ingresa un Numero"
             keyboardType="numeric"
@@ -40,19 +72,20 @@ const StartGame = () => {
             <View style={styles.button}>
               <Button
                 title="Limpiar"
-                onPress={() => null}
+                onPress={() => handlerClearInput()}
                 color={Colors.primary}
               />
             </View>
             <View style={styles.button}>
               <Button
                 title="Confirmar"
-                onPress={() => null}
+                onPress={() => handlerConfirmInput()}
                 color={Colors.secondary}
               />
             </View>
           </View>
         </Card>
+        {confirmedOutput}
       </View>
     </TouchableWithoutFeedback>
   );
